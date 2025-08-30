@@ -1,0 +1,29 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4">Login</h3>
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label asp-for="Input.Username" class="form-label">User Name</label>
+                <input asp-for="Input.Username" class="form-control" placeholder="Enter your username" />
+                <span asp-validation-for="Input.Username" class="text-danger small"></span>
+                @Model.ErrorMessage
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Password" class="form-label">Password</label>
+                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                @Model.ErrorMessage
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
+</div>
+
+                @* L#fz$6$E4UirjF *@

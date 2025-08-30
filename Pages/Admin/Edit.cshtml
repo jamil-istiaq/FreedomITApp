@@ -1,0 +1,30 @@
+﻿@page "{id}"
+@model FreedomITAS.Pages.Admin.EditModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+<div class="container mt-5 mb-5">
+    <h3>Edit User</h3>
+    <form method="post">
+        <input type="hidden" asp-for="Input.Id" />
+        <div class="mb-3">
+            <label asp-for="Input.FullName" class="form-label"></label>
+            <input asp-for="Input.FullName" class="form-control" />
+            <span asp-validation-for="Input.FullName" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Input.Email" class="form-label"></label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Input.Role" class="form-label"></label>
+            <select asp-for="Input.Role" class="form-select">
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+            </select>
+            <span asp-validation-for="Input.Role" class="text-danger small"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>

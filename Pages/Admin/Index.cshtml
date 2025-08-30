@@ -1,0 +1,45 @@
+﻿@page
+@model FreedomITAS.Pages.Admin.UserManagerModel
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2>User Management</h2>
+
+<a asp-page="/Admin/Create" class="btn btn-success mb-3">Create New User</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    <div class="d-flex flex-wrap gap-2" role="group">
+                        <a asp-page="/Admin/Edit" asp-route-id="@user.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-page="/Admin/ResetPassword" asp-route-id="@user.Id" class="btn btn-sm btn-secondary">Reset Password</a>
+
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@user.Id"
+                              onsubmit="return confirm('Are you sure you want to delete this user?');"
+                              style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

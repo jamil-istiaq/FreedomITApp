@@ -1,0 +1,61 @@
+﻿@page "/Admin/Create"
+@model FreedomITAS.Pages.Admin.CreateModel
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h3 class="mb-0">Create New User</h3>
+        </div>
+        <div class="card-body p-4">
+            <form method="post" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Input.FullName" class="form-label fw-bold"></label>
+                        <input asp-for="Input.FullName" class="form-control" placeholder="John Doe" />
+                        <span asp-validation-for="Input.FullName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Input.Email" class="form-label fw-bold"></label>
+                        <input asp-for="Input.Email" class="form-control" placeholder="example@email.com" />
+                        <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Input.Password" class="form-label fw-bold"></label>
+                        <input asp-for="Input.Password" class="form-control" placeholder="********" />
+                        <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Input.Role" class="form-label fw-bold"></label>
+                        <select asp-for="Input.Role" class="form-select">
+                            <option value="">-- Select Role --</option>
+                            <option value="Admin">Admin</option>
+                            <option value="User">User</option>
+                        </select>
+                        <span asp-validation-for="Input.Role" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="bi bi-person-plus-fill"></i> Create User
+                    </button>
+                </div>
+            </form>
+
+            @if (!string.IsNullOrEmpty(Model.StatusMessage))
+            {
+                <div class="alert alert-info mt-4">@Model.StatusMessage</div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

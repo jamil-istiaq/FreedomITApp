@@ -1,0 +1,98 @@
+﻿@page
+@model IndexModel
+@attribute [Authorize]
+@{
+    ViewData["Title"] = "FreedomIT Home";
+}
+@if (Model.Clients != null && Model.Clients.Any())
+{
+    <div class="w-100 px container mt-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <h2 class="mb-2">Clients</h2>
+            <a asp-page="/Clients/ClientCreate" class="btn btn-primary mb-2">Add New Client</a>
+        </div>
+
+        @* <div class="table-responsive"> *@
+        <table class="table table-striped table-bordered text-center align-middle w-100">
+            <thead class="table-dark">
+                <tr>
+                    <th>Company ID</th>
+                    <th>Company Name</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>Postcode</th>
+                    <th>State</th>
+                    <th>Country</th>
+                    <th>Company Phone</th>
+                    <th>ABN</th>
+                    <th>Contact Name</th>
+                    <th>Contact Email</th>
+                    <th>Contact Mobile</th>
+                    <th>Actions</th>
+                    <th>Create Profile</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model.Clients)
+                {
+                    <tr>
+                        <td>@client.ClientId</td>
+                        <td>@client.CompanyName</td>
+                        <td>@client.NumberStreet</td>
+                        <td>@client.City</td>
+                        <td>@client.Postcode</td>
+                        <td>@client.StateName</td>
+                        <td>@client.Country</td>
+                        <td>@client.CompanyPhone</td>
+                        <td>@client.CompanyABN</td>
+                        <td>@($"{client.ContactFirstName} {(string.IsNullOrWhiteSpace(client.ContactMiddleName) ? "" : client.ContactMiddleName + " ")}{client.ContactLastName}")</td>
+                        <td>@client.ContactMobile</td>
+                        <td>@client.ContactEmail</td>
+                        <td>
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <a asp-page="/Clients/ClientEdit" asp-route-id="@(Model.EncryptedIds != null && Model.EncryptedIds.ContainsKey(client.ClientId) ? Model.EncryptedIds[client.ClientId] : "")"
+                                   class="btn btn-sm btn-primary" style="min-width: 80px;">
+                                    Edit
+                                </a>
+
+
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@client.ClientId" class="d-inline" onsubmit="return confirm('Are you sure?');">
+                                    <button type="submit" class="btn btn-sm btn-danger" style="min-width: 80px;">Delete</button>
+                                </form>
+
+
+                            </div>
+                        </td>
+                        <td>
+                            <form method="post" asp-page-handler="PushClient">
+                                <input type="hidden" name="ClientId" value="@client.ClientId" />
+                                <div class="d-flex flex-column align-items-center gap-2">
+                                    <select name="SelectedSource[]" multiple class="form-select" style="width: 160px; height: 100px;" required>
+                                        <option value="HaloPSA">HaloPSA</option>
+                                        <option value="Hudu">Hudu</option>
+                                        <option value="Syncro">Syncro</option>
+                                        <option value="Dreamscape">Dreamscape</option>
+                                        <option value="Pax8">Pax8</option>
+                                        @* <option value="Zomentum">Zomentum</option> *@
+                                        <option value="HighLevel">GoHigh Level</option>
+                                        
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary" style="min-width: 80px;">Create</button>
+                                </div>
+                            </form>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @* </div> *@
+}
+else
+{
+    <div class="container mt-4">
+        <div class="alert alert-info">No client data available.</div>
+    </div>
+}
